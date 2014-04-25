@@ -4,6 +4,8 @@ require "thor"
 require "ive"
 
 class IveRunner < Thor
+  class_options :git => false
+
   desc "list", "Show all the possible version bumps."
   def list
     Ive::Base.list
@@ -23,6 +25,12 @@ class IveRunner < Thor
 
   desc "build", "Perform a build version bump."
   def build
+  end
+
+  private
+
+  def git?
+    options[:git]
   end
 end
 
