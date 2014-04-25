@@ -8,6 +8,9 @@ module Ive
         puts "- patch"
         puts "- build"
       end
+
+      def bump(type, with_git=false)
+      end
     end
   end
 end
