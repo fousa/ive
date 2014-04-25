@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Ive::VERSION
   spec.authors       = ["Jelle Vandebeeck"]
   spec.email         = ["jelle@fousa.be"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{A gem that allows you to bump the version of your Xcode project.}
+  spec.description   = %q{A gem that allows you to bump the version of your Xcode project. You can do a major, minor, patch or build bump. }
+  spec.homepage      = "https://github.com/fousa/ive"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
