@@ -8,5 +8,22 @@ class IveRunner < Thor
   def list
     Ive::Base.list
   end
+
+  desc "major", "Perform a major version bump."
+  def major
+  end
+
+  desc "minor", "Perform a minor version bump."
+  def minor
+  end
+
+  desc "patch", "Perform a patch version bump."
+  def patch
+  end
+
+  desc "build", "Perform a build version bump."
+  def build
+  end
 end
+
 IveRunner.start
