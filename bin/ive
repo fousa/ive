@@ -4,9 +4,9 @@ require "thor"
 require "ive"
 
 class IveRunner < Thor
-  desc "bump", "Show all the possible version bumps."
-  def bump
-    Ive::Base.bump_list
+  desc "list", "Show all the possible version bumps."
+  def list
+    Ive::Base.list
   end
 end
 IveRunner.start
