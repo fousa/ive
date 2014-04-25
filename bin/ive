@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require "ive"
+
+class IveRunner < Thor
+  class_options :git => false
+
+  desc "list", "Show all the possible version bumps."
+  def list
+    Ive::Base.list
+  end
+
+  %i(major minor patch build).each do |type|
+    desc type, "Perform a #{type} version bump."
+    define_method type do
+      Ive::Base.bump type, git?
+    end
+  end
+
+  private
+
+  def git?
+    options[:git] == true
+  end
+end
+
+IveRunner.start
