@@ -42,8 +42,8 @@ To tag the commit add the _--git_ parameter.
 
 You can also supply the path of the project root if needed. Just pass the _-p_ (or _--path_) parameter.
 
-   ive major -p ~/Project
-   ive major --path ~/Project
+    ive major -p ~/Project
+    ive major --path ~/Project
 
 You can also specify the target/configuration you want to bump the version by adding an extra _.ive_ file in the project root. This file should contain a valid target and configuration in order to be used.
 
