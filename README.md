@@ -6,7 +6,7 @@ The current bumps are supported by Ive:
 - **Major** _Go from 1.0.0 to 2.0.0_
 - **Minor** _Go from 1.0.0 to 1.1.0_
 - **Patch** _Go from 1.0.0 to 1.0.1_
-- **Build** _Go from 1.0.0-100000 to 1.0.0-100001_
+- **Build** _Go from 1.0.0-0001 to 1.0.0-0002_
 
 And you can even automatically tag the current commit with this lastest version bump.
 
