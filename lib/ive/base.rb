@@ -1,4 +1,5 @@
 require "xcoder"
+require "yaml"
 
 module Ive
   class Base
@@ -16,7 +17,8 @@ module Ive
         puts "-- Using the current project: #{path}"
 
         if project = xcode_project(path)
-          config = project.targets.first.config(:Debug)
+          config = config project, path
+          return if config.nil?
 
           puts "-- Tagging and commiting enabled: #{with_git ? "yes" : "no"}"
           if with_git
@@ -37,7 +39,7 @@ module Ive
       def version path
         puts "-- Using the current project: #{path}"
         if project = xcode_project(path)
-          config = project.targets.first.config(:Debug)
+          config = config project, path
           puts "-- Version #{config.info_plist.marketing_version}"
           puts "-- Build version #{config.info_plist.version}"
         else
@@ -50,6 +52,31 @@ module Ive
       def xcode_project path
         project_path = Dir.glob("#{path}/*.xcodeproj").first
         Xcode.project project_path
+      end
+
+      def config project, path
+        if config_file?(path) && valid_config?(path)
+          config = config_file path
+          project.target(config["target"]).config(config["configuration"])
+        else
+          project.targets.first.config(:Debug)
+        end
+      rescue Exception => e
+        puts "-- #{e}"
+        nil
+      end
+
+      def config_file? path
+        File.exists?(File.join(path,'.ive'))
+      end
+
+      def config_file path
+        YAML::load(File.open(File.join(path,'.ive')))
+      end
+
+      def valid_config? path
+        config = config_file path
+        config["target"] && config["configuration"]
       end
     end
   end
