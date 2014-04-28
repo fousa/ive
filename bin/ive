@@ -13,8 +13,9 @@ class IveRunner < Thor
 
   %i(major minor patch build).each do |type|
     desc type, "Perform a #{type} version bump."
-    define_method type do |path|
-      Ive::Base.bump type, path, git?
+    method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
+    define_method type do
+      Ive::Base.bump type, options[:path], git?
     end
   end
 
