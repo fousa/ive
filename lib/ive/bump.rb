@@ -20,6 +20,7 @@ module Ive
 
       def build(config, with_git=false)
         puts "-- Bumping build version"
+        bumped_build_version config
       end
 
       private
@@ -28,7 +29,7 @@ module Ive
         version = Versionomy.parse config.info_plist.marketing_version
         config.info_plist do |info|
           info.marketing_version = version.bump(type).to_s
-          info.version = build_version_from info.marketing_version
+          info.version = build_version_from info.marketing_version, 1
           info.save
         end
 
@@ -38,8 +39,23 @@ module Ive
         new_version
       end
 
-      def build_version_from version
-        version.gsub(".", "") + ".0001"
+      def bumped_build_version config
+        version = Versionomy.parse config.info_plist.marketing_version
+        config.info_plist do |info|
+          new_build_version = extract_build_version info.version
+          info.version = build_version_from info.marketing_version, new_build_version + 1
+          info.save
+        end
+
+        puts "-- New build version: #{config.info_plist.version}"
+      end
+
+      def build_version_from version, count
+        version.gsub(".", "") + ".#{"%04.f" % count}"
+      end
+
+      def extract_build_version version
+        version.split(".").last.to_i
       end
     end
   end
