@@ -28,9 +28,9 @@ Or install it yourself as:
 
 It's really simple to use. Just run anh of the following commands in the Terminal from the project root in order to bump.
 
-    ive major
-    ive minor
-    ive patch
+    ive major (from 1.0.0 to 2.0.0)
+    ive minor (from 1.0.0 to 1.1.0)
+    ive patch (from 1.0.0 to 1.0.1)
     ive build
 
 To tag the commit add the _--git_ parameter.
