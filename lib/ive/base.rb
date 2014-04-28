@@ -12,7 +12,9 @@ module Ive
       end
 
       def bump(type, path, with_git=false)
+        path = Dir.pwd unless path
         puts "-- Using the current project: #{path}"
+
         if project = xcode_project(path)
           config = project.targets.first.config(:Debug)
 
