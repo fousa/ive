@@ -28,17 +28,29 @@ Or install it yourself as:
 
 It's really simple to use. Just run anh of the following commands in the Terminal from the project root in order to bump.
 
-    ivo bump:major
-    ivo bump:minor
-    ivo bump:patch
-    ivo bump:build
+    ive major
+    ive minor
+    ive patch
+    ive build
 
 To tag the commit add the _--git_ parameter.
 
-    ivo bump:major --git
-    ivo bump:minor --git
-    ivo bump:patch --git
-    ivo bump:build --git
+    ive major --git
+    ive minor --git
+    ive patch --git
+    ive build --git
+
+You can also supply the path of the project root if needed. Just pass the _-p_ (or _--path_) parameter.
+
+   ive major -p ~/Project
+   ive major --path ~/Project
+
+You can also specify the target/configuration you want to bump the version by adding an extra _.ive_ file in the project root. This file should contain a valid target and configuration in order to be used.
+
+Here is an example of the configuration file.
+
+    target: "TheProject"
+    configuration: "Debug"
 
 ## Contributing
 
