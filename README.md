@@ -52,6 +52,11 @@ Here is an example of the configuration file.
     target: "TheProject"
     configuration: "Debug"
 
+It's also possible to check out the current version.
+
+    ive version
+    ive version -p ~/Project
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/ive/fork )

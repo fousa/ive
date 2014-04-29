@@ -8,20 +8,23 @@ class IveRunner < Thor
 
   desc "list", "Show all the possible version bumps."
   def list
-    Ive::Base.list
+    Ive::Base.new.list
   end
 
   %i(major minor patch build).each do |type|
     desc type, "Perform a #{type} version bump."
     method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
     define_method type do
-      Ive::Base.bump type, options[:path], git?
+      ENV["IVE_PATH"] = options[:path]
+      Ive::Base.new.bump type, git?
     end
   end
 
   desc "version", "Show the current project version."
-  def version(path)
-    Ive::Base.version path
+  method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
+  def version
+    ENV["IVE_PATH"] = options[:path]
+    Ive::Base.new.version
   end
 
   private

@@ -3,23 +3,19 @@ require "versionomy"
 module Ive
   class Bump
     class << self
-      def major(config, with_git=false)
-        puts "-- Bumping version"
+      def major(config)
         bumped_version config, :major
       end
 
-      def minor(config, with_git=false)
-        puts "-- Bumping version"
+      def minor(config)
         bumped_version config, :minor
       end
 
-      def patch(config, with_git=false)
-        puts "-- Bumping version"
+      def patch(config)
         bumped_version config, :tiny
       end
 
-      def build(config, with_git=false)
-        puts "-- Bumping build version"
+      def build(config)
         bumped_build_version config
       end
 
@@ -34,8 +30,6 @@ module Ive
         end
 
         new_version = "v#{config.info_plist.marketing_version}"
-        puts "-- New version: #{config.info_plist.marketing_version}"
-        puts "-- New build version: #{config.info_plist.version}"
         new_version
       end
 
@@ -46,8 +40,6 @@ module Ive
           info.version = build_version_from info.marketing_version, new_build_version + 1
           info.save
         end
-
-        puts "-- New build version: #{config.info_plist.version}"
       end
 
       def build_version_from version, count
