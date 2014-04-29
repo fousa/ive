@@ -3,22 +3,22 @@ require "versionomy"
 module Ive
   class Bump
     class << self
-      def major(config, with_git=false)
+      def major(config)
         puts "-- Bumping version"
         bumped_version config, :major
       end
 
-      def minor(config, with_git=false)
+      def minor(config)
         puts "-- Bumping version"
         bumped_version config, :minor
       end
 
-      def patch(config, with_git=false)
+      def patch(config)
         puts "-- Bumping version"
         bumped_version config, :tiny
       end
 
-      def build(config, with_git=false)
+      def build(config)
         puts "-- Bumping build version"
         bumped_build_version config
       end
