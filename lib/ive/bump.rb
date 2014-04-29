@@ -4,22 +4,18 @@ module Ive
   class Bump
     class << self
       def major(config)
-        puts "-- Bumping version"
         bumped_version config, :major
       end
 
       def minor(config)
-        puts "-- Bumping version"
         bumped_version config, :minor
       end
 
       def patch(config)
-        puts "-- Bumping version"
         bumped_version config, :tiny
       end
 
       def build(config)
-        puts "-- Bumping build version"
         bumped_build_version config
       end
 
@@ -34,8 +30,6 @@ module Ive
         end
 
         new_version = "v#{config.info_plist.marketing_version}"
-        puts "-- New version: #{config.info_plist.marketing_version}"
-        puts "-- New build version: #{config.info_plist.version}"
         new_version
       end
 
@@ -46,8 +40,6 @@ module Ive
           info.version = build_version_from info.marketing_version, new_build_version + 1
           info.save
         end
-
-        puts "-- New build version: #{config.info_plist.version}"
       end
 
       def build_version_from version, count

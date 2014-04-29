@@ -16,16 +16,11 @@ module Ive
             if Git.changes?
               puts "-- This repository has uncommited changes please commit these changes before performing a version bump."
             else
-              if version = Bump.public_send(type, config)
-                Git.commit version
-              else
-                puts "-- The current version is invalid, initialize the version."
-              end
+              version = Bump.public_send(type, config)
+              Git.commit version
             end
           else
-            unless version = Bump.public_send(type, config)
-              puts "-- The current version is invalid, initialize the version."
-            end
+            Bump.public_send(type, config)
           end
         else
           puts "-- No project file found"

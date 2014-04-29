@@ -10,10 +10,10 @@ module Ive
       if self.exists?
         self.read_config
         unless self.valid?
-          puts "not valid"
+          puts "-- Invalid .ive config file."
         end
       else
-        puts "no config"
+        puts "-- No .ive config file found."
       end
     end
 
