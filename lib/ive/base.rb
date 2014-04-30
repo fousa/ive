@@ -12,15 +12,26 @@ module Ive
 
       def bump(type, git=false)
         fetch_config do |config|
-          if git
-            if Git.changes?
-              puts "-- This repository has uncommited changes please commit these changes before performing a version bump."
-            else
+          use_git git do
+            if git
               version = Bump.public_send(type, config)
               Git.commit version
+            else
+              Bump.public_send(type, config)
             end
-          else
-            Bump.public_send(type, config)
+          end
+        end
+      end
+
+      def initialize_version git=false
+        fetch_config do |config|
+          use_git git do
+            if git
+              version = Bump.initialize_version config
+              Git.commit version
+            else
+              Bump.initialize_version config
+            end
           end
         end
       end
@@ -42,6 +53,18 @@ module Ive
           puts "-- .ive configuration file missing or invalid."
         else
           puts "-- No project file found."
+        end
+      end
+
+      def use_git enabled, &block
+        if enabled
+          if Git.changes?
+            puts "-- This repository has uncommited changes please commit these changes before performing a version bump."
+          else
+            yield if block_given?
+          end
+        else
+          yield if block_given?
         end
       end
     end
