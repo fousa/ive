@@ -54,7 +54,7 @@ Here is an example of the configuration file.
 
 If a .ive configuration file is missing you can easlily generate one with his command.
 
-   ive setup
+    ive setup
 
 It's also possible to check out the current version.
 
