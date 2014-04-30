@@ -6,8 +6,8 @@ module Ive
       return nil unless Ive.config.valid?
 
       project.target(Ive.config.target).config(Ive.config.configuration)
-    #rescue Exception => e
-      #nil
+    rescue Exception => e
+      nil
     end
 
     def project

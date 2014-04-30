@@ -19,6 +19,20 @@ module Ive
         bumped_build_version config
       end
 
+      def initialize_version config
+        version = Versionomy.parse "1.0.0"
+        config.info_plist do |info|
+          info.marketing_version = version.to_s
+          info.version = build_version_from info.marketing_version, 1
+          info.save
+        end
+        puts "-- Current version #{config.info_plist.marketing_version}"
+        puts "-- Current build version #{config.info_plist.version}"
+
+        new_version = "v#{config.info_plist.marketing_version}"
+        new_version
+      end
+
       private
       
       def bumped_version config, type
@@ -28,6 +42,8 @@ module Ive
           info.version = build_version_from info.marketing_version, 1
           info.save
         end
+        puts "-- Current version #{config.info_plist.marketing_version}"
+        puts "-- Current build version #{config.info_plist.version}"
 
         new_version = "v#{config.info_plist.marketing_version}"
         new_version
@@ -40,6 +56,8 @@ module Ive
           info.version = build_version_from info.marketing_version, new_build_version + 1
           info.save
         end
+        puts "-- Current version #{config.info_plist.marketing_version}"
+        puts "-- Current build version #{config.info_plist.version}"
       end
 
       def build_version_from version, count

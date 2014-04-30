@@ -7,20 +7,15 @@ module Ive
     attr :configuration
 
     def initialize
-      if self.exists?
-        self.read_config
-        unless self.valid?
-          puts "-- Invalid .ive config file."
-        end
-      else
-        puts "-- No .ive config file found."
-      end
+      self.read_config if self.exists?
     end
 
     def read_config
       params = YAML::load File.open(self.config_path)
-      @target = params["target"]
-      @configuration = params["configuration"]
+      if params
+        @target = params["target"]
+        @configuration = params["configuration"]
+      end
     end
 
     def valid?
