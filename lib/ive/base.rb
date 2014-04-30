@@ -36,6 +36,24 @@ module Ive
         end
       end
 
+      def setup
+        xcode = Ive::Xcode.new
+        if xcode
+          configuration = Configuration.new
+          if configuration.valid?
+            puts "-- An .ive configuration file is already set."
+          else
+            config_params = xcode.initial_config
+            if config_params
+              Configuration.new.create_file(config_params) 
+              puts "-- .ive configuration file generated"
+            end
+          end
+        else
+          puts "-- No project file found."
+        end
+      end
+
       def version
         fetch_config do |config|
           puts "-- Current version #{config.info_plist.marketing_version}"

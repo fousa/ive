@@ -27,11 +27,18 @@ class IveRunner < Thor
     Ive::Base.new.version
   end
 
-  desc "init", "Show the current project version."
+  desc "init", "Initialize the version to 1.0.0 for the current project."
   method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
   def init
     ENV["IVE_PATH"] = options[:path]
     Ive::Base.new.initialize_version git?
+  end
+
+  desc "setup", "Create the .ive configuration file for the current project."
+  method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
+  def setup
+    ENV["IVE_PATH"] = options[:path]
+    Ive::Base.new.setup
   end
 
   private

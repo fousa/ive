@@ -10,6 +10,10 @@ module Ive
       self.read_config if self.exists?
     end
 
+    def create_file xcode_params
+      File.open(config_path, "w") { |f| f.write(initial_content(xcode_params)) } unless exists?
+    end
+
     def read_config
       params = YAML::load File.open(self.config_path)
       if params
@@ -28,6 +32,13 @@ module Ive
 
     def config_path
       @config_path ||= File.join(Ive.path,'.ive')
+    end
+
+    def initial_content xcode_params
+      <<TEXT
+target: "#{xcode_params[:target]}"
+configuration: "#{xcode_params[:configuration]}"
+TEXT
     end
   end
 end
