@@ -57,6 +57,10 @@ It's also possible to check out the current version.
     ive version
     ive version -p ~/Project
 
+Set the initial version to 1.0.0 with a build number 0001.
+
+    ive init
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/ive/fork )
