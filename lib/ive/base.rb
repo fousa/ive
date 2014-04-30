@@ -3,7 +3,7 @@ require "xcoder"
 module Ive
   class Base
       def list
-        puts "-- Ive supports the following version bumps:"
+        puts "Ive supports the following version bumps:"
         puts "- major"
         puts "- minor"
         puts "- patch"
@@ -27,8 +27,8 @@ module Ive
 
       def version
         fetch_config do |config|
-          puts "-- Version #{config.info_plist.marketing_version}"
-          puts "-- Build version #{config.info_plist.version}"
+          puts "-- Current version #{config.info_plist.marketing_version}"
+          puts "-- Current build version #{config.info_plist.version}"
         end
       end
 
@@ -41,7 +41,7 @@ module Ive
         elsif xcode
           puts "-- .ive configuration file missing or invalid."
         else
-          puts "-- No project file found"
+          puts "-- No project file found."
         end
       end
     end
