@@ -52,6 +52,10 @@ Here is an example of the configuration file.
     target: "TheProject"
     configuration: "Debug"
 
+If a .ive configuration file is missing you can easlily generate one with his command.
+
+   ive setup
+
 It's also possible to check out the current version.
 
     ive version
