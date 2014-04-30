@@ -52,10 +52,18 @@ Here is an example of the configuration file.
     target: "TheProject"
     configuration: "Debug"
 
+If a .ive configuration file is missing you can easlily generate one with his command.
+
+   ive setup
+
 It's also possible to check out the current version.
 
     ive version
     ive version -p ~/Project
+
+Set the initial version to 1.0.0 with a build number 0001.
+
+    ive init
 
 ## Contributing
 

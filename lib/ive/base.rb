@@ -3,7 +3,7 @@ require "xcoder"
 module Ive
   class Base
       def list
-        puts "-- Ive supports the following version bumps:"
+        puts "Ive supports the following version bumps:"
         puts "- major"
         puts "- minor"
         puts "- patch"
@@ -11,28 +11,78 @@ module Ive
       end
 
       def bump(type, git=false)
-        if config = Ive::Xcode.new.config
-          if git
-            if Git.changes?
-              puts "-- This repository has uncommited changes please commit these changes before performing a version bump."
-            else
+        fetch_config do |config|
+          use_git git do
+            if git
               version = Bump.public_send(type, config)
               Git.commit version
+            else
+              Bump.public_send(type, config)
             end
+          end
+        end
+      end
+
+      def initialize_version git=false
+        fetch_config do |config|
+          use_git git do
+            if git
+              version = Bump.initialize_version config
+              Git.commit version
+            else
+              Bump.initialize_version config
+            end
+          end
+        end
+      end
+
+      def setup
+        xcode = Ive::Xcode.new
+        if xcode
+          configuration = Configuration.new
+          if configuration.valid?
+            puts "-- An .ive configuration file is already set."
           else
-            Bump.public_send(type, config)
+            config_params = xcode.initial_config
+            if config_params
+              Configuration.new.create_file(config_params) 
+              puts "-- .ive configuration file generated"
+            end
           end
         else
-          puts "-- No project file found"
+          puts "-- No project file found."
         end
       end
 
       def version
-        if config = Ive::Xcode.new.config
-          puts "-- Version #{config.info_plist.marketing_version}"
-          puts "-- Build version #{config.info_plist.version}"
+        fetch_config do |config|
+          puts "-- Current version #{config.info_plist.marketing_version}"
+          puts "-- Current build version #{config.info_plist.version}"
+        end
+      end
+
+      private
+
+      def fetch_config &block
+        xcode = Ive::Xcode.new
+        if config = xcode.config
+          yield config if block_given?
+        elsif xcode
+          puts "-- .ive configuration file missing or invalid."
         else
-          puts "-- No project file found"
+          puts "-- No project file found."
+        end
+      end
+
+      def use_git enabled, &block
+        if enabled
+          if Git.changes?
+            puts "-- This repository has uncommited changes please commit these changes before performing a version bump."
+          else
+            yield if block_given?
+          end
+        else
+          yield if block_given?
         end
       end
     end
