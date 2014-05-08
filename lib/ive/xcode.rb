@@ -12,14 +12,20 @@ module Ive
     end
 
     def initial_config
-      if project.targets.count > 0 && (target = project.targets.first)
-        if target.configs.count > 0 && (config = target.configs.first)
-          { target: target.name, configuration: config.name }
+      config_hash = {}
+      project.targets.each do |target|
+        if target.configs.count > 0
+          config_hash[target.name] = target.configs.map(&:name)
         else
           puts "-- No configurations found for target '#{target.name}' in the current project"
         end
+      end
+
+      if config_hash.empty?
+        puts "-- No targets found in the current project" 
+        nil
       else
-        puts "-- No targets found in the current project"
+        config_hash
       end
     end
 
