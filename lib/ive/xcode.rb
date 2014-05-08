@@ -5,7 +5,10 @@ module Ive
     def config
       return nil unless Ive.config.valid?
 
-      project.target(Ive.config.target).config(Ive.config.configuration)
+      target = Ive.config.targets.first
+      configuration = Ive.config.configurations[target].first
+      puts "-- Used the '#{target}' Target with the '#{configuration}' configuration."
+      project.target(target).config(configuration)
     rescue Exception => e
       puts "-- #{e.message}"
       nil
