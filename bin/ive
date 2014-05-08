@@ -15,9 +15,11 @@ class IveRunner < Thor
     desc type, "Perform a #{type} version bump."
     method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
     method_option :target, :aliases => "-t", :desc => "Supply the target to set the #{type} version"
+    method_option :configuration, :aliases => "-c", :desc => "Supply the configuration to set the #{type} version"
     define_method type do
       ENV["IVE_PATH"] = options[:path]
       ENV["IVE_TARGET"] = options[:target]
+    ENV["IVE_CONFIGURATION"] = options[:configuration]
       Ive::Base.new.bump type, git?
     end
   end
@@ -25,18 +27,22 @@ class IveRunner < Thor
   desc "version", "Show the current project version."
   method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
   method_option :target, :aliases => "-t", :desc => "Supply the target to read the version"
+  method_option :configuration, :aliases => "-c", :desc => "Supply the configuration to read the version"
   def version
     ENV["IVE_PATH"] = options[:path]
     ENV["IVE_TARGET"] = options[:target]
+    ENV["IVE_CONFIGURATION"] = options[:configuration]
     Ive::Base.new.version
   end
 
   desc "init", "Initialize the version to 1.0.0 for the current project."
   method_option :path, :aliases => "-p", :desc => "Supply the path where the project is located"
   method_option :target, :aliases => "-p", :desc => "Supply the target to initialize the version"
+  method_option :configuration, :aliases => "-c", :desc => "Supply the configuration to initialize the version"
   def init
     ENV["IVE_PATH"] = options[:path]
     ENV["IVE_TARGET"] = options[:target]
+    ENV["IVE_CONFIGURATION"] = options[:configuration]
     Ive::Base.new.initialize_version git?
   end
 

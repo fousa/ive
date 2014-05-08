@@ -9,7 +9,7 @@ module Ive
       contains_target = !project.targets.detect { |t| t.name == target }.nil?
       puts "-- Target '#{target}' not found in the project." unless contains_target
 
-      configuration = Ive.config.configurations[target].first
+      configuration = ENV["IVE_CONFIGURATION"] || Ive.config.configurations[target].first
       project_target = project.target(target)
       contains_configuration = !project_target.configs.detect { |c| c.name == configuration }.nil?
       puts "-- Configuration '#{configuration}' not found for Target '#{target}' in the project." unless contains_configuration
