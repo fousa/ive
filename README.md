@@ -53,13 +53,13 @@ If a .ive configuration file is missing you can easlily generate one with his co
 
 Choosing the target/configuration to version bump can also be set. There is a _--configuration_ (or _-c_ in short) and a _--target_ (or _-t_) parameter that can be set the same way you set the path.
 
-   ive major -c Release
-   ive major --configuration Release
+    ive major -c Release
+    ive major --configuration Release
 
 The code above will make sure the _Release_ configuration is used by **Ive**. The same can be done for the target as shown below.
 
-   ive major -t AppTargetName
-   ive major --target AppTargetName
+    ive major -t AppTargetName
+    ive major --target AppTargetName
 
 It's also possible to check out the current version.
 
