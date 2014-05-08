@@ -47,14 +47,19 @@ You can also supply the path of the project root if needed. Just pass the _-p_ (
 
 You can also specify the target/configuration you want to bump the version by adding an extra _.ive_ file in the project root. This file should contain a valid target and configuration in order to be used.
 
-Here is an example of the configuration file.
-
-    target: "TheProject"
-    configuration: "Debug"
-
 If a .ive configuration file is missing you can easlily generate one with his command.
 
     ive setup
+
+Choosing the target/configuration to version bump can also be set. There is a _--configuration_ (or _-c_ in short) and a _--target_ (or _-t_) parameter that can be set the same way you set the path.
+
+   ive major -c Release
+   ive major --configuration Release
+
+The code above will make sure the _Release_ configuration is used by **Ive**. The same can be done for the target as shown below.
+
+   ive major -t AppTargetName
+   ive major --target AppTargetName
 
 It's also possible to check out the current version.
 
