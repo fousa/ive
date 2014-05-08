@@ -3,8 +3,8 @@ require "yaml"
 
 module Ive
   class Configuration
-    attr :target
-    attr :configuration
+    attr :targets
+    attr :configurations
 
     def initialize
       self.read_config if self.exists?
@@ -17,13 +17,18 @@ module Ive
     def read_config
       params = YAML::load File.open(self.config_path)
       if params
-        @target = params["target"]
-        @configuration = params["configuration"]
+        @targets = params.keys
+        @configurations = params
       end
     end
 
     def valid?
-      @target && @configuration
+      return false unless @targets 
+      return false unless @targets.count > 0 
+      return false unless @configurations 
+      values = @configurations.values.select { |v| v.count > 0 }
+      return false if values.empty?
+      true
     end
 
     def exists?
@@ -35,10 +40,7 @@ module Ive
     end
 
     def initial_content xcode_params
-      <<TEXT
-target: "#{xcode_params[:target]}"
-configuration: "#{xcode_params[:configuration]}"
-TEXT
+      xcode_params.to_yaml
     end
   end
 end
