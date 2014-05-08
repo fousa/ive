@@ -5,12 +5,20 @@ module Ive
     def config
       return nil unless Ive.config.valid?
 
-      target = Ive.config.targets.first
+      target = ENV["IVE_TARGET"] || Ive.config.targets.first
+      contains_target = !project.targets.detect { |t| t.name == target }.nil?
+      puts "-- Target '#{target}' not found in the project." unless contains_target
+
       configuration = Ive.config.configurations[target].first
+      project_target = project.target(target)
+      contains_configuration = !project_target.configs.detect { |c| c.name == configuration }.nil?
+      puts "-- Configuration '#{configuration}' not found for Target '#{target}' in the project." unless contains_configuration
+
+      project_configuration = project_target.config(configuration)
       puts "-- Used the '#{target}' Target with the '#{configuration}' configuration."
-      project.target(target).config(configuration)
+      project_configuration
     rescue Exception => e
-      puts "-- #{e.message}"
+      puts "-- #{e.message}" unless e.class == NoMethodError
       nil
     end
 
